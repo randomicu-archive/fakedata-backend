@@ -1,6 +1,8 @@
-name: ci
+name: "Dependabot testing"
 on:
-  pull_request_target
+  pull_request_target:
+    branches:
+      - master
 
 permissions:
   packages: read
