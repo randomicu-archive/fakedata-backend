@@ -1,12 +1,14 @@
 name: Build Image
 on:
   pull_request:
-    branches: master
+    branches:
+      - master
 
 jobs:
   build_image:
     name: Build fakedata-backend image
     runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' }}
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
