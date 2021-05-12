@@ -4,8 +4,7 @@ on:
     branches:
       - master
 
-permissions:
-  packages: read-all
+permissions: read-all
 
 jobs:
   tests:
