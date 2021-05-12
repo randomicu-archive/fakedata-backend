@@ -1,4 +1,4 @@
-name: cd
+name: "Build production image"
 on:
   release:
     types: [published]

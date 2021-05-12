@@ -1,4 +1,4 @@
-name: Build Image
+name: "Test image building"
 on:
   pull_request:
     branches:
