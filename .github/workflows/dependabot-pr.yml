@@ -4,8 +4,6 @@ on:
     branches:
       - master
 
-permissions: read-all
-
 jobs:
   tests:
     runs-on: ubuntu-latest
@@ -31,7 +29,7 @@ jobs:
       with:
         registry: ghcr.io
         username: ${{ github.repository_owner }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        password: ${{ secrets.DEPENDABOT_READ_PACKAGES }}
 
     - name: Add Python 3.9.4
       uses: actions/setup-python@v2
@@ -43,14 +41,14 @@ jobs:
       with:
         poetry-version: 1.1.5
 
-#    - name: Cache poetry's venv
-#      uses: actions/cache@v2.1.2
-#      id: cache
-#      with:
-#        path: ~/.virtualenvs
-#        key: ${{ runner.os }}-cache-${{ secrets.CACHE_VERSION }}-${{ hashFiles('**/poetry.lock') }}
-#        restore-keys: |
-#          ${{ runner.os }}-cache-${{ secrets.CACHE_VERSION }}-${{ hashFiles('**/poetry.lock') }}
+    - name: Cache poetry's venv
+      uses: actions/cache@v2.1.2
+      id: cache
+      with:
+        path: ~/.virtualenvs
+        key: ${{ runner.os }}-cache-${{ secrets.CACHE_VERSION }}-${{ hashFiles('**/poetry.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-cache-${{ secrets.CACHE_VERSION }}-${{ hashFiles('**/poetry.lock') }}
 
     - name: Set poetry config
       run: |
@@ -59,7 +57,7 @@ jobs:
 
     - name: Install Dependencies
       run: poetry add --dev pytest-cov && poetry install --no-root
-#      if: steps.cache.outputs.cache-hit != 'true'
+      if: steps.cache.outputs.cache-hit != 'true'
 
     - name: Run db migrations and pytest
       env:
