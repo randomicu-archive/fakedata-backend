@@ -1,6 +1,6 @@
 name: "Dependabot PR check"
 on:
-  pull_request:
+  pull_request
 
 jobs:
   check_dependabot:
