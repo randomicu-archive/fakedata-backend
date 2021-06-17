@@ -21,7 +21,7 @@ pytest = "^6.2.4"
 requests = "^2.25.1"
 pre-commit = "^2.12.1"
 flake8 = "^3.9.1"
-flake8-pytest-style = "^1.4.1"
+flake8-pytest-style = "^1.4.4"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
