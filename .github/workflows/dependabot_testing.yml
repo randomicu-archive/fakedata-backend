@@ -91,13 +91,14 @@ jobs:
         uses: actions/cache@v2
         with:
           path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          key: ${{ runner.os }}-buildx-${{ github.event.pull_request.head.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx
 
       - name: Get the commit hash
         id: vars
-        run: echo ::set-output name=commit_hash::$(echo ${GITHUB_SHA:0:7})
+#        run: echo ::set-output name=commit_hash::$(echo ${GITHUB_SHA:0:7})
+        run: echo ::set-output name=commit_hash::$(echo ${{ github.event.pull_request.head.sha:0:7 }})
 
       - name: Build docker image
         id: docker_build
@@ -108,10 +109,10 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: false
           tags: |
-            ghcr.io/randomicu/fakedata-backend:${{ steps.vars.outputs.commit_hash }}
+            ghcr.io/randomicu/fakedata-backend:${{ github.event.pull_request.head.sha }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
       - name: Image tag
         run: |
-          echo ${{ steps.vars.outputs.commit_hash }}
+          echo ${{ github.event.pull_request.head.sha }}
