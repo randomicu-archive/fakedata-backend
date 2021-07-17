@@ -159,7 +159,7 @@ pyflakes = ">=2.3.0,<2.4.0"
 
 [[package]]
 name = "flake8-plugin-utils"
-version = "1.3.1"
+version = "1.3.2"
 description = "The package provides base classes and utils for flake8 plugin writing"
 category = "dev"
 optional = false
@@ -167,14 +167,14 @@ python-versions = ">=3.6,<4.0"
 
 [[package]]
 name = "flake8-pytest-style"
-version = "1.4.1"
+version = "1.5.0"
 description = "A flake8 plugin checking common style issues or inconsistencies with pytest-based tests."
 category = "dev"
 optional = false
 python-versions = ">=3.6,<4.0"
 
 [package.dependencies]
-flake8-plugin-utils = ">=1.3.1,<2.0.0"
+flake8-plugin-utils = ">=1.3.2,<2.0.0"
 
 [[package]]
 name = "greenlet"
@@ -570,7 +570,7 @@ python-versions = ">=3.6.1"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "29359d151a62e987239f9fe9a019a95d75c4c9793618a4a216e3b2e3b3cbb731"
+content-hash = "37ecdc68007cac8e58c6e4aa6edfa999ed1c5efdfa0d4f1b0679a50fe68fc0e5"
 
 [metadata.files]
 appdirs = [
@@ -647,12 +647,12 @@ flake8 = [
     {file = "flake8-3.9.2.tar.gz", hash = "sha256:07528381786f2a6237b061f6e96610a4167b226cb926e2aa2b6b1d78057c576b"},
 ]
 flake8-plugin-utils = [
-    {file = "flake8-plugin-utils-1.3.1.tar.gz", hash = "sha256:6e996bc24ebe327558f24efd106f1be5f0c033c8cbb6eed815631f73d487f1c9"},
-    {file = "flake8_plugin_utils-1.3.1-py3-none-any.whl", hash = "sha256:efdbf9d15b18f72b7c348dd360f30e7cf3e73aa67ff832d5343eb5aa1115f250"},
+    {file = "flake8-plugin-utils-1.3.2.tar.gz", hash = "sha256:20fa2a8ca2decac50116edb42e6af0a1253ef639ad79941249b840531889c65a"},
+    {file = "flake8_plugin_utils-1.3.2-py3-none-any.whl", hash = "sha256:1fe43e3e9acf3a7c0f6b88f5338cad37044d2f156c43cb6b080b5f9da8a76f06"},
 ]
 flake8-pytest-style = [
-    {file = "flake8-pytest-style-1.4.1.tar.gz", hash = "sha256:1bd3b7bb95608d6b70daebb0b0ee636be92d8175527f2e9919cbeb76f7515118"},
-    {file = "flake8_pytest_style-1.4.1-py3-none-any.whl", hash = "sha256:bc4c10e5fcc2a20937bb6ce523579e9f91adfcb5403dce3adda5ac7c9bce364f"},
+    {file = "flake8-pytest-style-1.5.0.tar.gz", hash = "sha256:668ce8f55edf7db4ac386d2735c3b354b5cb47aa341a4655d91a5788dd03124b"},
+    {file = "flake8_pytest_style-1.5.0-py3-none-any.whl", hash = "sha256:ec287a7dc4fe95082af5e408c8b2f8f4b6bcb366d5a17ff6c34112eb03446580"},
 ]
 greenlet = [
     {file = "greenlet-1.0.0-cp27-cp27m-macosx_10_14_x86_64.whl", hash = "sha256:1d1d4473ecb1c1d31ce8fd8d91e4da1b1f64d425c1dc965edc4ed2a63cfa67b2"},
