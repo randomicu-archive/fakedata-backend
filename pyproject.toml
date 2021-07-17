@@ -18,7 +18,7 @@ psycopg2 = "^2.9.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.4"
-requests = "^2.25.1"
+requests = "^2.26.0"
 pre-commit = "^2.13.0"
 flake8 = "^3.9.2"
 flake8-pytest-style = "^1.5.0"
