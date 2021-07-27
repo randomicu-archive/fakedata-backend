@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # This module is wrapper for Mimesis's gender provider
 import functools
+from typing import Dict
+from typing import Optional
+from typing import Union
 
 from mimesis import Person
 from mimesis.builtins import RussiaSpecProvider
@@ -8,16 +11,16 @@ from mimesis.enums import Gender
 
 
 @functools.lru_cache()
-def get_person_object(lang: str):
+def get_person_object(lang: str) -> Person:
     return Person(lang)
 
 
 @functools.lru_cache()
-def get_ru_special_fields():
+def get_ru_special_fields() -> RussiaSpecProvider:
     return RussiaSpecProvider()
 
 
-def get_data(person: Person, gender):
+def get_data(person: Person, gender: Gender):
     first_name = person.first_name(gender=gender)
     last_name = person.last_name(gender=gender)
 
@@ -43,7 +46,7 @@ def get_data(person: Person, gender):
     }
 
 
-def get_additional_data(lang: str, gender):
+def get_additional_data(lang: str, gender: Gender) -> Optional[Dict[str, str]]:
     if lang == 'ru':
         ru = get_ru_special_fields()
         additional_data = {
@@ -54,11 +57,12 @@ def get_additional_data(lang: str, gender):
             'ogrn': ru.ogrn(),
             'passport': ru.series_and_number()
         }
-
         return additional_data
+    else:
+        return None
 
 
-def get_person_gender(gender_code: int) -> Gender:
+def get_person_gender(gender_code: Union[str, int]) -> Gender:
     """
     :param gender_code:
         Codes for the representation of human sexes is an international

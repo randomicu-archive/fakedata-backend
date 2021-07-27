@@ -12,7 +12,7 @@ MIMESIS_LANGUAGES = {
 
 
 @functools.lru_cache()
-def get_address_object(lang: str):
+def get_address_object(lang: str) -> Address:
     return Address(lang)
 
 
