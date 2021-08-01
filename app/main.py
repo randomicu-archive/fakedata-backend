@@ -5,6 +5,7 @@ from app.db import database
 from app.routers import address
 from app.routers import healthcheck
 from app.routers import person
+from app.routers import uuid
 
 app = FastAPI()
 
@@ -22,3 +23,4 @@ async def shutdown():
 app.include_router(healthcheck.router)
 app.include_router(address.router, prefix='/v1')
 app.include_router(person.router, prefix='/v1')
+app.include_router(uuid.router, prefix='/v1')

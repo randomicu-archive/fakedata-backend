@@ -17,3 +17,4 @@ class EventType(Enum):
     lorem_paragraphs = auto()
     lorem_paragraphs_break = auto()
     lorem_lists = auto()
+    uuid = auto()
