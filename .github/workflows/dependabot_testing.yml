@@ -31,10 +31,10 @@ jobs:
         username: ${{ github.repository_owner }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Add Python 3.9.4
+    - name: Add Python 3.9.6
       uses: actions/setup-python@v2
       with:
-        python-version: 3.9.4
+        python-version: 3.9.6
 
     - name: Add poetry 1.1.7
       uses: Gr1N/setup-poetry@v7
