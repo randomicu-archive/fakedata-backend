@@ -1,5 +1,5 @@
 # Uncomment this if your project is hosted on GitHub:
-# github_url = "https://github.com/<user or organization>/<project>/"
+github_url = "https://github.com/randomicu/fakedata-provider"
 
 [version]
 current = "1.0.8"
