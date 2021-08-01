@@ -15,6 +15,14 @@ Run `uvicorn` in development mode on 8000 port (with autoreload) from repo root:
 
 In some cases PyCharm could not run docker-compose services. Fix is [here](https://intellij-support.jetbrains.com/hc/en-us/community/posts/360000174084-docker-compose-does-not-work-on-ubuntu-using-default-settings).
 
+### Version management
+
+Install tbump first: `pipx install tbump`
+
+First, commit changes and run `tbump --no-push new_version`
+
+Verify local tag and push it too: `git push origin new_version`
+
 ## Deployment
 
 Deploy notes.
