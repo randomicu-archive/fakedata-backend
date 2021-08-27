@@ -97,7 +97,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "databases"
-version = "0.4.2"
+version = "0.5.0"
 description = "Async database support for Python."
 category = "main"
 optional = false
@@ -105,7 +105,7 @@ python-versions = ">=3.6"
 
 [package.dependencies]
 asyncpg = {version = "*", optional = true, markers = "extra == \"postgresql\""}
-sqlalchemy = "*"
+sqlalchemy = ">=1.4,<1.5"
 
 [package.extras]
 mysql = ["aiomysql"]
@@ -573,7 +573,7 @@ python-versions = ">=3.6.1"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "396a9fed8ece0425626ce870de718a37f312e1b22a4150887c3bd932c42b68de"
+content-hash = "c48213fa353c139898736d8b4bab283c23f51291ddf07ecbfde71a8a0a5e5c3a"
 
 [metadata.files]
 appdirs = [
@@ -628,8 +628,8 @@ colorama = [
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
 databases = [
-    {file = "databases-0.4.2-py3-none-any.whl", hash = "sha256:44788f6fd344f27baa2be9b42c3926222932000a3ba7dce5a305167a2cb1f6bb"},
-    {file = "databases-0.4.2.tar.gz", hash = "sha256:2ca1b72f0209744e25fababc44c183e5fb6f7dd7af4274379f2ec6f14c00432a"},
+    {file = "databases-0.5.0-py3-none-any.whl", hash = "sha256:0c129b090e2f41650b1dd56a77c707d462c6685d2f15e98588cba91ec829d837"},
+    {file = "databases-0.5.0.tar.gz", hash = "sha256:530d5f489338bf34886cad0fb6f1584922cb25ce9684afec63c37f00e8d6725d"},
 ]
 distlib = [
     {file = "distlib-0.3.1-py2.py3-none-any.whl", hash = "sha256:8c09de2c67b3e7deef7184574fc060ab8a793e7adbb183d942c389c8b13c52fb"},
