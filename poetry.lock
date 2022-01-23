@@ -114,7 +114,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "databases"
-version = "0.5.4"
+version = "0.5.5"
 description = "Async database support for Python."
 category = "main"
 optional = false
@@ -603,7 +603,7 @@ python-versions = ">=3.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "63fbfc0a2f36adc38d7bdc10878b2a2fa136239af804cacc7bd7fd785b693573"
+content-hash = "9922744a29e4164a245070e4c2b00d0b82814107a90c09603fc04e5dfca06aa7"
 
 [metadata.files]
 anyio = [
@@ -675,8 +675,8 @@ colorama = [
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
 databases = [
-    {file = "databases-0.5.4-py3-none-any.whl", hash = "sha256:85a6b0dd92e4bc95205c08141baf1e192c8aedb2159ce03bee39bb4117cfed83"},
-    {file = "databases-0.5.4.tar.gz", hash = "sha256:04a3294d053bd8d9f4162fc4975ab11a3e9ad01ae37992adce84440725957fec"},
+    {file = "databases-0.5.5-py3-none-any.whl", hash = "sha256:97d9b9647216d1ab53ca61c059412b5c7b6e1f0bf8ce985477982ebcc7f278f3"},
+    {file = "databases-0.5.5.tar.gz", hash = "sha256:02c6b016c1c951c21cca281dc8e2e002c60dc44026c0084aabbd8c37514aeb37"},
 ]
 distlib = [
     {file = "distlib-0.3.1-py2.py3-none-any.whl", hash = "sha256:8c09de2c67b3e7deef7184574fc060ab8a793e7adbb183d942c389c8b13c52fb"},
