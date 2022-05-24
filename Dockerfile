@@ -1,4 +1,4 @@
-FROM ghcr.io/randomicu/fakedata-backend-base:1.0.6 as builder-dev
+FROM ghcr.io/randomicu/fakedata-backend-base:1.0.7 as builder-dev
 
 RUN set -eux && \
     apt-get install --yes --no-install-recommends build-essential
@@ -8,7 +8,7 @@ COPY poetry.lock pyproject.toml ./
 RUN poetry install --no-root --no-dev
 
 # Development image
-FROM ghcr.io/randomicu/fakedata-backend-base:1.0.6
+FROM ghcr.io/randomicu/fakedata-backend-base:1.0.7
 
 WORKDIR $PYSETUP_PATH
 COPY --from=builder-dev $POETRY_HOME $POETRY_HOME
