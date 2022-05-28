@@ -1,6 +1,6 @@
-# Randomicu-fakedata
+# fakedata-backend
 
-random.icu companion service with internal API for data generation from Mimesis providers.
+random.icu companion service with internal API for data generation.
 
 ## Available providers
 
