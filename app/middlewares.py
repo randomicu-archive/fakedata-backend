@@ -1,7 +1,8 @@
 #!/usr/bin/env python
+from http import HTTPStatus
+
 from fastapi import HTTPException
 from starlette.requests import Request
-from http import HTTPStatus
 
 from .providers.address import MIMESIS_LANGUAGES
 
