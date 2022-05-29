@@ -1,4 +1,6 @@
 #!/usr/local/bin python
+from http import HTTPStatus
+
 from fastapi import APIRouter
 from fastapi import HTTPException
 
@@ -14,7 +16,7 @@ router = APIRouter()
 async def get_uuid(uppercase: bool = False, version: int = 4):
 
     if version != 4:
-        raise HTTPException(status_code=400,
+        raise HTTPException(status_code=HTTPStatus.BAD_REQUEST,
                             detail='Unsupported uuid version. '
                                    'Use version `4` as path param')
 
