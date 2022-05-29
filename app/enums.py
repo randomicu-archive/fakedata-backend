@@ -1,4 +1,4 @@
-#!/usr/local/bin/env python
+#!/usr/bin/env python
 from enum import auto
 from enum import Enum
 from enum import unique

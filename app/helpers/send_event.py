@@ -1,4 +1,4 @@
-#!/usr/local/bin/env python
+#!/usr/bin/env python
 from app.db import database
 from app.enums import EventType
 from app.models.db.event import event_table

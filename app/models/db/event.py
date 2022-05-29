@@ -1,4 +1,4 @@
-#!/usr/local/bin/env python
+#!/usr/bin/env python
 from sqlalchemy import Column
 from sqlalchemy import DateTime
 from sqlalchemy import func
