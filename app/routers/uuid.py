@@ -1,4 +1,4 @@
-#!/usr/local/bin python
+#!/usr/bin/env python
 from http import HTTPStatus
 
 from fastapi import APIRouter

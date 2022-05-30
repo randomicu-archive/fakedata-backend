@@ -1,4 +1,4 @@
-#!/usr/local/bin python
+#!/usr/bin/env python
 from fastapi import APIRouter
 from fastapi import Depends
 from mimesis import Person
