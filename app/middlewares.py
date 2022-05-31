@@ -4,7 +4,7 @@ from http import HTTPStatus
 from fastapi import HTTPException
 from starlette.requests import Request
 
-from .providers.address import MIMESIS_LANGUAGES
+from .responses.address import MIMESIS_LANGUAGES
 
 
 async def verify_mimesis_locales(request: Request):

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from requests import Response
 
-from app.providers.address import get_country_code
+from app.responses.address import get_country_code
 
 EN_LOCALE_COUNTRY_CODE = 'us'
 RU_LOCALE_COUNTRY_CODE = 'ru'

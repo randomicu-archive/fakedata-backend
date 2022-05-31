@@ -7,8 +7,8 @@ from app.enums import EventType
 from app.helpers.send_event import send_event
 from app.middlewares import verify_mimesis_locales
 from app.models.schema.address import AddressSchema
-from app.providers.address import get_address_object
-from app.providers.address import get_data
+from app.responses.address import get_address_object
+from app.responses.address import get_data
 
 router = APIRouter()
 

@@ -7,10 +7,10 @@ from app.enums import EventType
 from app.helpers.send_event import send_event
 from app.middlewares import verify_mimesis_locales
 from app.models.schema.person import PersonSchema
-from app.providers.person import get_additional_data
-from app.providers.person import get_data
-from app.providers.person import get_person_gender
-from app.providers.person import get_person_object
+from app.responses.person import get_additional_data
+from app.responses.person import get_data
+from app.responses.person import get_person_gender
+from app.responses.person import get_person_object
 
 router = APIRouter()
 
