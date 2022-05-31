@@ -5,10 +5,10 @@ from fastapi import APIRouter
 from fastapi import HTTPException
 
 from app.enums import EventType
-from app.helpers.send_event import send_event
 from app.models.schema.uuid import RootUuidSchema
 from app.models.schema.uuid import UuidSchema
 from app.responses.uuid import UuidResponse
+from app.helpers.event import Event
 
 router = APIRouter()
 
@@ -32,6 +32,6 @@ async def get_uuids(uppercase: bool = False, version: int = 4, count: int = 1) -
     uuid_response: UuidResponse = UuidResponse(uppercase=uppercase, version=version)
     responses.append(uuid_response.generate())
 
-    await send_event(event_type=EventType.uuid)
+    await Event.send_event(event_type=EventType.uuid)
 
     return RootUuidSchema(result=responses)

@@ -4,13 +4,13 @@ from fastapi import Depends
 from mimesis import Person
 
 from app.enums import EventType
-from app.helpers.send_event import send_event
 from app.middlewares import verify_mimesis_locales
 from app.models.schema.person import PersonSchema
 from app.responses.person import get_additional_data
 from app.responses.person import get_data
 from app.responses.person import get_person_gender
 from app.responses.person import get_person_object
+from app.helpers.event import Event
 
 router = APIRouter()
 
@@ -35,6 +35,6 @@ async def get_person(lang: str):
 
         data.update(additional_data)
 
-    await send_event(event_type=EventType.person, language=lang)
+    await Event.send_event(event_type=EventType.person, language=lang)
 
     return PersonSchema(**data)
