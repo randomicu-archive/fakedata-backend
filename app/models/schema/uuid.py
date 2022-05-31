@@ -2,11 +2,15 @@
 from pydantic import BaseModel
 
 
-class _InternalSchemaUUID(BaseModel):
+class NestedUuidSchema(BaseModel):
     uuid: str
-    version: int = 4
+    version: int
 
 
-class UUIDSchema(BaseModel):
-    uuid: _InternalSchemaUUID
+class UuidSchema(BaseModel):
+    uuid: NestedUuidSchema
     uppercase: bool
+
+
+class RootUuidSchema(BaseModel):
+    result: list[UuidSchema] = []
