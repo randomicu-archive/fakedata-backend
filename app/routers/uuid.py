@@ -6,22 +6,32 @@ from fastapi import HTTPException
 
 from app.enums import EventType
 from app.helpers.send_event import send_event
-from app.models.schema.uuid import UUIDSchema
-from app.providers.uuid import get_data
+from app.models.schema.uuid import RootUuidSchema
+from app.models.schema.uuid import UuidSchema
+from app.responses.uuid import UuidResponse
 
 router = APIRouter()
 
 
-@router.get('/uuid', response_model=UUIDSchema)
-async def get_uuid(uppercase: bool = False, version: int = 4):
-
+@router.get('/uuid', response_model=RootUuidSchema)
+async def get_uuids(uppercase: bool = False, version: int = 4, count: int = 1) -> RootUuidSchema | list[RootUuidSchema]:
     if version != 4:
         raise HTTPException(status_code=HTTPStatus.BAD_REQUEST,
                             detail='Unsupported uuid version. '
-                                   'Use version `4` as path param')
+                                   'Use version `4` as a query param')
 
-    data = get_data(uppercase=uppercase, version=version)
+    responses: list[UuidSchema] = []
+
+    if count > 1:
+        for _ in range(count):
+            response: UuidResponse = UuidResponse(uppercase=uppercase, version=version)
+            responses.append(response.generate())
+
+        return RootUuidSchema(result=responses)
+
+    uuid_response: UuidResponse = UuidResponse(uppercase=uppercase, version=version)
+    responses.append(uuid_response.generate())
 
     await send_event(event_type=EventType.uuid)
 
-    return UUIDSchema(**data)
+    return RootUuidSchema(result=responses)

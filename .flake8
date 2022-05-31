@@ -1,6 +1,6 @@
 [flake8]
 # Code style config
-max-line-length = 90
+max-line-length = 120
 
 # Excluding
 exclude = tests/*, .venv, dist, build, __pycache__, .tox
