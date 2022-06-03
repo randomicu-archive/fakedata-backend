@@ -6,11 +6,11 @@ from app import __version__
 
 def test_healthcheck_router(client):
     with client:
-        response: Response = client.get('/healthcheck')
+        response: Response = client.get('/health')
 
     response_structure = {
+        'version': __version__,
         'status': 'UP',
-        'version': __version__
     }
 
     assert response.status_code == 200

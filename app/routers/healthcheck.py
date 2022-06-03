@@ -8,7 +8,7 @@ from app.models.schema.healthcheck import HealthcheckSchema
 router = APIRouter()
 
 
-@router.get('/healthcheck')
+@router.get('/health')
 async def get_status():
     data = {
         'version': __version__,
