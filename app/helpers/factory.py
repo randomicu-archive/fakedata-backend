@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import functools
 
-from enums import ProviderType
+from app.enums import ProviderType
 from mimesis import Address
 
 

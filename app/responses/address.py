@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-from enums import ProviderType
-from helpers.factory import ProviderFactory
+from app.enums import ProviderType
+from app.helpers.factory import ProviderFactory
 
 from app.models.schema.address import AddressSchema
 from app.responses.response import Response
