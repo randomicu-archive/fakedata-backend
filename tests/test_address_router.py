@@ -1,62 +1,54 @@
 #!/usr/bin/env python
 from requests import Response
 
-from app.responses.address import get_country_code
-
-EN_LOCALE_COUNTRY_CODE = 'us'
-RU_LOCALE_COUNTRY_CODE = 'ru'
+RESPONSE_STRUCTURE = {
+        'result': [
+            {
+                'address': '',
+                'calling_code': '',
+                'city': '',
+                'continent': '',
+                'coordinates': '',
+                'country': '',
+                'country_code': '',
+                'state': '',
+                'street_name': '',
+                'street_number': '',
+                'street_suffix': '',
+                'zip_code': '',
+            }
+        ]
+    }
 
 
 def test_en_address_router(client, setup_test_db):
     with client:
         response: Response = client.get('/v1/en/address')
 
-    response_structure = {
-        'address': '',
-        'calling_code': '',
-        'city': '',
-        'continent': '',
-        'coordinates': '',
-        'country': '',
-        'country_code': get_country_code(language='en') == EN_LOCALE_COUNTRY_CODE,
-        'latitude': '',
-        'longitude': '',
-        'postal_code': '',
-        'state': '',
-        'street_name': '',
-        'street_number': '',
-        'street_suffix': '',
-        'zip_code': '',
-    }
-
-    assert response.status_code == 200
-    assert response_structure.keys() == response.json().keys()
+    ensure_valid_response(response)
 
 
 def test_ru_address_router(client):
     with client:
         response: Response = client.get('/v1/ru/address')
 
-    response_structure = {
-        'address': '',
-        'calling_code': '',
-        'city': '',
-        'continent': '',
-        'coordinates': '',
-        'country': '',
-        'country_code': get_country_code(language='ru') == RU_LOCALE_COUNTRY_CODE,
-        'latitude': '',
-        'longitude': '',
-        'postal_code': '',
-        'state': '',
-        'street_name': '',
-        'street_number': '',
-        'street_suffix': '',
-        'zip_code': '',
-    }
+    ensure_valid_response(response)
 
-    assert response.status_code == 200
-    assert response_structure.keys() == response.json().keys()
+
+def test_en_address_count_param(client):
+    with client:
+        response: Response = client.get('/v1/en/address?count=2')
+
+    ensure_valid_response(response)
+    assert len(response.json()['result']) == 2
+
+
+def test_ru_address_count_param(client):
+    with client:
+        response: Response = client.get('/v1/ru/address?count=2')
+
+    ensure_valid_response(response)
+    assert len(response.json()['result']) == 2
 
 
 def test_incorrect_locale(client):
@@ -71,3 +63,8 @@ def test_inexistent_route(client):
         response: Response = client.get('/v1/en/no_route')
 
     assert response.status_code == 404
+
+
+def ensure_valid_response(response: Response):
+    assert response.status_code == 200
+    assert RESPONSE_STRUCTURE.keys() == response.json().keys()

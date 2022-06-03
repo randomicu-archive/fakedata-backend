@@ -5,10 +5,10 @@ from fastapi import APIRouter
 from fastapi import HTTPException
 
 from app.enums import EventType
+from app.helpers.event import Event
 from app.models.schema.uuid import RootUuidSchema
 from app.models.schema.uuid import UuidSchema
 from app.responses.uuid import UuidResponse
-from app.helpers.event import Event
 
 router = APIRouter()
 
