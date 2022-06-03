@@ -4,19 +4,18 @@ from fastapi import Depends
 from mimesis import Person
 
 from app.enums import EventType
-from app.middlewares import verify_mimesis_locales
+from app.helpers.event import Event
+from app.middlewares import verify_locale
 from app.models.schema.person import PersonSchema
 from app.responses.person import get_additional_data
 from app.responses.person import get_data
 from app.responses.person import get_person_gender
 from app.responses.person import get_person_object
-from app.helpers.event import Event
 
 router = APIRouter()
 
 
-@router.get('/{lang}/person',
-            dependencies=[Depends(verify_mimesis_locales)],
+@router.get('/{lang}/person', dependencies=[Depends(verify_locale)],
             response_model=PersonSchema,
             response_model_exclude_none=True)
 async def get_person(lang: str):

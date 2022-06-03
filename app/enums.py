@@ -18,3 +18,15 @@ class EventType(Enum):
     lorem_paragraphs_break = auto()
     lorem_lists = auto()
     uuid = auto()
+
+
+@unique
+class ProviderType(Enum):
+    address = auto()
+    person = auto()
+
+
+@unique
+class Locale(Enum):
+    en = 'en'
+    ru = 'ru'
