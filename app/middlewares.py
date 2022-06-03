@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from http import HTTPStatus
 
-from enums import Locale
+from app.enums import Locale
 from fastapi import HTTPException
 from starlette.requests import Request
 
