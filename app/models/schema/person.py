@@ -1,11 +1,9 @@
 #!/usr/bin/env python
-from typing import Optional
-
 from pydantic import BaseModel
 
 
 class PersonSchema(BaseModel):
-    age: int
+    age: int | str
     email: str
     first_name: str
     full_name: str
@@ -23,9 +21,13 @@ class PersonSchema(BaseModel):
     username: str
     weight: int
     work_experience: int
-    patronymic: Optional[str] = None
-    inn: Optional[str] = None
-    kpp: Optional[str] = None
-    bic: Optional[str] = None
-    ogrn: Optional[str] = None
-    passport: Optional[str] = None
+    patronymic: str | None = None
+    inn: str | None = None
+    kpp: str | None = None
+    bic: str | None = None
+    ogrn: str | None = None
+    passport: str | None = None
+
+
+class RootPersonSchema(BaseModel):
+    result: list[PersonSchema] = []

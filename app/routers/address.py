@@ -11,8 +11,8 @@ from app.responses.address import AddressResponse
 router = APIRouter()
 
 
-@router.get('/{lang}/address', dependencies=[Depends(verify_locale)])
-async def get_address(lang: str,
+@router.get('/{locale}/address', dependencies=[Depends(verify_locale)])
+async def get_address(locale: str,
                       address: str | None = None,
                       calling_code: int | None = None,
                       city: str | None = None,
@@ -26,7 +26,7 @@ async def get_address(lang: str,
                       zip_code: int | str | None = None,
                       count: int = 1):
 
-    address_response: AddressResponse = AddressResponse(lang=lang,
+    address_response: AddressResponse = AddressResponse(locale=locale,
                                                         address=address,
                                                         calling_code=calling_code,
                                                         city=city,
@@ -44,5 +44,5 @@ async def get_address(lang: str,
         for _ in range(count):
             responses.append(address_response.generate())
 
-    await Event.send_event(event_type=EventType.address, language=lang)
+    await Event.send_event(event_type=EventType.ADDRESS, language=locale)
     return RootAddressSchema(result=responses)

@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 from http import HTTPStatus
 
-from app.enums import Locale
 from fastapi import HTTPException
 from starlette.requests import Request
+
+from app.enums import Locale
 
 
 async def verify_locale(request: Request):
@@ -13,5 +14,5 @@ async def verify_locale(request: Request):
 
     allowed_locales: list[str] = [_.value for _ in Locale]
 
-    if (request.path_params['lang'] and request.path_params['lang']) not in allowed_locales:
+    if (request.path_params['locale'] and request.path_params['locale']) not in allowed_locales:
         raise HTTPException(status_code=HTTPStatus.BAD_REQUEST, detail='Incorrect locale')
