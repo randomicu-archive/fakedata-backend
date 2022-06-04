@@ -8,7 +8,7 @@ class Event:
     @staticmethod
     async def send_event(event_type: EventType, language: str = 'en'):
         query = event_table.insert().values(
-            event_type=event_type,
+            event_type=event_type.value,
             language=language
         )
         return await database.execute(query=query)
