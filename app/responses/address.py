@@ -1,15 +1,15 @@
 #!/usr/bin/env python
+from app.enums import Locale
 from app.enums import ProviderType
 from app.helpers.factory import ProviderFactory
-
 from app.models.schema.address import AddressSchema
 from app.responses.response import Response
 
 
 class AddressResponse(Response):
-    def __init__(self, lang: str, **kwargs):
-        self.lang = lang
-        self.provider = ProviderFactory.get(ProviderType.address, lang=lang)
+    def __init__(self, locale: str, **kwargs):
+        self.locale = Locale[locale.upper()]
+        self.provider = ProviderFactory.get(ProviderType.ADDRESS, locale=self.locale)
         self.address = kwargs['address']
         self.calling_code = kwargs['calling_code']
         self.city = kwargs['city']

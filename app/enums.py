@@ -6,27 +6,28 @@ from enum import unique
 
 @unique
 class EventType(Enum):
-    address = auto()
-    person = auto()
-    random_sentence = auto()
-    random_sentences = auto()
-    sentence_limits = auto()
-    lorem_limits = auto()
-    lorem_bytes = auto()
-    lorem_words = auto()
-    lorem_paragraphs = auto()
-    lorem_paragraphs_break = auto()
-    lorem_lists = auto()
-    uuid = auto()
+    ADDRESS = 'address'
+    PERSON = 'person'
+    RANDOM_SENTENCE = 'random_sentence'
+    RANDOM_SENTENCES = 'random_sentences'
+    SENTENCE_LIMITS = 'sentence_limits'
+    LOREM_LIMITS = 'lorem_limits'
+    LOREM_BYTES = 'lorem_bytes'
+    LOREM_WORDS = 'lorem_words'
+    LOREM_PARAGRAPHS = 'lorem_paragraphs'
+    LOREM_PARAGRAPHS_BREAK = 'lorem_paragraphs_break'
+    LOREM_LISTS = 'lorem_lists'
+    UUID = 'uuid'
 
 
 @unique
 class ProviderType(Enum):
-    address = auto()
-    person = auto()
+    ADDRESS = auto()
+    PERSON = auto()
+    REGIONAL_RU = auto()
 
 
 @unique
 class Locale(Enum):
-    en = 'en'
-    ru = 'ru'
+    EN = 'en'
+    RU = 'ru'

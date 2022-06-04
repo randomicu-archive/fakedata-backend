@@ -32,6 +32,5 @@ async def get_uuids(uppercase: bool = False, version: int = 4, count: int = 1) -
     uuid_response: UuidResponse = UuidResponse(uppercase=uppercase, version=version)
     responses.append(uuid_response.generate())
 
-    await Event.send_event(event_type=EventType.uuid)
-
+    await Event.send_event(event_type=EventType.UUID)
     return RootUuidSchema(result=responses)

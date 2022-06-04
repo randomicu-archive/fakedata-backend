@@ -1,39 +1,72 @@
 #!/usr/bin/env python
 from fastapi import APIRouter
 from fastapi import Depends
-from mimesis import Person
 
 from app.enums import EventType
 from app.helpers.event import Event
 from app.middlewares import verify_locale
-from app.models.schema.person import PersonSchema
-from app.responses.person import get_additional_data
-from app.responses.person import get_data
-from app.responses.person import get_person_gender
-from app.responses.person import get_person_object
+from app.models.schema.person import RootPersonSchema
+from app.responses.person import PersonResponse
 
 router = APIRouter()
 
 
-@router.get('/{lang}/person', dependencies=[Depends(verify_locale)],
-            response_model=PersonSchema,
+@router.get('/{locale}/person', dependencies=[Depends(verify_locale)],
+            response_model=RootPersonSchema,
             response_model_exclude_none=True)
-async def get_person(lang: str):
-    person: Person = get_person_object(lang)
-    person_gender = get_person_gender(person.gender(iso5218=True))
-    data = get_data(person, person_gender)
-    additional_data = get_additional_data(lang, person_gender)
+async def get_person(locale: str,
+                     count: int = 1,
+                     age: int | None = None,
+                     email: str | None = None,
+                     first_name: str | None = None,
+                     full_name: str | None = None,
+                     height: int | None = None,
+                     identifier: str | None = None,
+                     last_name: str | None = None,
+                     nationality: str | None = None,
+                     occupation: str | None = None,
+                     political_views: str | None = None,
+                     telephone: str | None = None,
+                     title: str | None = None,
+                     university: str | None = None,
+                     username: str | None = None,
+                     weight: str | None = None,
+                     work_experience: int | None = None,
+                     patronymic: str | None = None,
+                     inn: str | None = None,
+                     kpp: str | None = None,
+                     bic: str | None = None,
+                     ogrn: str | None = None,
+                     passport: str | None = None
+                     ):
+    person_response: PersonResponse = PersonResponse(locale=locale,
+                                                     age=age,
+                                                     email=email,
+                                                     first_name=first_name,
+                                                     full_name=full_name,
+                                                     height=height,
+                                                     identifier=identifier,
+                                                     last_name=last_name,
+                                                     nationality=nationality,
+                                                     occupation=occupation,
+                                                     political_views=political_views,
+                                                     telephone=telephone,
+                                                     title=title,
+                                                     university=university,
+                                                     username=username,
+                                                     weight=weight,
+                                                     work_experience=work_experience,
+                                                     patronymic=patronymic,
+                                                     inn=inn,
+                                                     kpp=kpp,
+                                                     bic=bic,
+                                                     ogrn=ogrn,
+                                                     passport=passport)
 
-    if additional_data:
-        if additional_data.get('patronymic'):
-            patronymic = additional_data.get('patronymic')
-            first_name = data['first_name']
-            last_name = data['last_name']
+    responses = []
+    if count >= 1:
+        for _ in range(count):
+            responses.append(person_response.generate())
 
-            data['full_name'] = f'{last_name} {first_name} {patronymic}'
-
-        data.update(additional_data)
-
-    await Event.send_event(event_type=EventType.person, language=lang)
-
-    return PersonSchema(**data)
+    await Event.send_event(event_type=EventType.PERSON, language=locale)
+    return RootPersonSchema(result=responses)
