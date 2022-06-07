@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-import random
 
 from mimesis import Person
 from mimesis.builtins import RussiaSpecProvider
@@ -7,16 +6,18 @@ from mimesis.enums import Gender
 
 from app.enums import Locale
 from app.enums import ProviderType
-from app.helpers.factory import ProviderFactory
+from app.helpers.factory import Factory
 from app.models.schema.person import PersonSchema
 from app.responses.response import Response
 
 
 class PersonResponse(Response):
-    def __init__(self, locale: str, **kwargs):
+    def __init__(self, locale: str, seed: str, **kwargs):
         self.locale: Locale = Locale[locale.upper()]
-        self.provider: Person = ProviderFactory.get(ProviderType.PERSON, locale=self.locale)
-        self.gender: Gender = self.get_gender(self.provider.gender(iso5218=True))
+        self.seed = seed
+        self.provider: Person = Factory.get_provider(ProviderType.PERSON, seed=self.seed, locale=self.locale)
+        self.gender_number: int = Factory.get_gender_code(seed=self.seed)
+        self.gender: Gender = self.get_gender(self.gender_number)
         self.age: int = kwargs['age']
         self.email: str = kwargs['email']
         self.first_name: str = kwargs['first_name']
@@ -41,6 +42,8 @@ class PersonResponse(Response):
         self.passport: str = kwargs['passport']
 
     def generate(self):
+        self.provider.reseed(self.seed)
+
         _first_name = self.first_name or self.provider.first_name(gender=self.gender)
         _last_name = self.last_name or self.provider.last_name(gender=self.gender)
         _full_name = f'{_first_name} {_last_name}'
@@ -68,27 +71,25 @@ class PersonResponse(Response):
 
         if is_regional:
             return self.generate_regional_schema(schema, full_name=_full_name)
-        else:
-            return schema
+
+        return schema
 
     def check_if_regional(self) -> bool:
         return self.locale != Locale.EN
 
     @staticmethod
-    def get_gender(gender_code: str) -> Gender:
+    def get_gender(gender_code: int) -> Gender:
         match gender_code:
-            case 0:
-                return Gender.MALE
             case 1:
+                return Gender.MALE
+            case 2:
                 return Gender.FEMALE
-            case _:
-                return random.choice([Gender.MALE, Gender.FEMALE])
 
     def generate_regional_schema(self, schema, **kwargs) -> RussiaSpecProvider:
-        ru_provider: RussiaSpecProvider = ProviderFactory.get(ProviderType.REGIONAL_RU)
+        ru_provider: RussiaSpecProvider = Factory.get_provider(ProviderType.REGIONAL_RU, seed=self.seed)
+        ru_provider.reseed(seed=self.seed)
 
         _patronymic: str = self.patronymic or ru_provider.patronymic(self.gender)
-
         _full_name: str = f'{kwargs["full_name"]} {_patronymic}'
 
         schema.full_name = _full_name

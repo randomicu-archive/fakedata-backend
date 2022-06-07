@@ -31,3 +31,4 @@ class PersonSchema(BaseModel):
 
 class RootPersonSchema(BaseModel):
     result: list[PersonSchema] = []
+    seed: str = None
