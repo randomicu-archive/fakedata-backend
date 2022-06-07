@@ -2,23 +2,24 @@
 from requests import Response
 
 RESPONSE_STRUCTURE = {
-        'result': [
-            {
-                'address': '',
-                'calling_code': '',
-                'city': '',
-                'continent': '',
-                'coordinates': '',
-                'country': '',
-                'country_code': '',
-                'state': '',
-                'street_name': '',
-                'street_number': '',
-                'street_suffix': '',
-                'zip_code': '',
-            }
-        ]
-    }
+    'result': [
+        {
+            'address': '',
+            'calling_code': '',
+            'city': '',
+            'continent': '',
+            'coordinates': '',
+            'country': '',
+            'country_code': '',
+            'state': '',
+            'street_name': '',
+            'street_number': '',
+            'street_suffix': '',
+            'zip_code': '',
+        }
+    ],
+    'seed': ''
+}
 
 
 def test_en_address_router(client, setup_test_db):

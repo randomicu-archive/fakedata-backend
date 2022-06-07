@@ -19,3 +19,4 @@ class AddressSchema(BaseModel):
 
 class RootAddressSchema(BaseModel):
     result: list[AddressSchema] = []
+    seed: str | None

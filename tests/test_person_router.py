@@ -23,7 +23,8 @@ RESPONSE_STRUCTURE = {
             'weight': '',
             'work_experience': ''
         }
-    ]
+    ],
+    'seed': ''
 }
 
 

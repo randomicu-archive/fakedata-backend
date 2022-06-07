@@ -1,15 +1,18 @@
 #!/usr/bin/env python
+from mimesis import Address
+
 from app.enums import Locale
 from app.enums import ProviderType
-from app.helpers.factory import ProviderFactory
+from app.helpers.factory import Factory
 from app.models.schema.address import AddressSchema
 from app.responses.response import Response
 
 
 class AddressResponse(Response):
-    def __init__(self, locale: str, **kwargs):
+    def __init__(self, locale: str, seed: str, **kwargs):
         self.locale = Locale[locale.upper()]
-        self.provider = ProviderFactory.get(ProviderType.ADDRESS, locale=self.locale)
+        self.seed = seed
+        self.provider: Address = Factory.get_provider(ProviderType.ADDRESS, locale=self.locale, seed=self.seed)
         self.address = kwargs['address']
         self.calling_code = kwargs['calling_code']
         self.city = kwargs['city']
@@ -23,6 +26,8 @@ class AddressResponse(Response):
         self.zip_code = kwargs['zip_code']
 
     def generate(self):
+        self.provider.reseed(self.seed)
+
         return AddressSchema(
             address=self.address or self.provider.address(),
             calling_code=self.calling_code or self.provider.calling_code(),

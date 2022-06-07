@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+import secrets
+
 from fastapi import APIRouter
 from fastapi import Depends
 
@@ -11,8 +13,13 @@ from app.responses.address import AddressResponse
 router = APIRouter()
 
 
-@router.get('/{locale}/address', dependencies=[Depends(verify_locale)])
+@router.get('/{locale}/address',
+            dependencies=[Depends(verify_locale)],
+            response_model=RootAddressSchema,
+            response_model_exclude_none=True)
 async def get_address(locale: str,
+                      seed: str | None = None,
+                      count: int = 1,
                       address: str | None = None,
                       calling_code: int | None = None,
                       city: str | None = None,
@@ -23,10 +30,14 @@ async def get_address(locale: str,
                       street_name: str | None = None,
                       street_number: str | None = None,
                       street_suffix: str | None = None,
-                      zip_code: int | str | None = None,
-                      count: int = 1):
+                      zip_code: int | str | None = None
+                      ):
+
+    if not seed:
+        seed = secrets.token_hex(16)
 
     address_response: AddressResponse = AddressResponse(locale=locale,
+                                                        seed=seed,
                                                         address=address,
                                                         calling_code=calling_code,
                                                         city=city,
@@ -45,4 +56,4 @@ async def get_address(locale: str,
             responses.append(address_response.generate())
 
     await Event.send_event(event_type=EventType.ADDRESS, language=locale)
-    return RootAddressSchema(result=responses)
+    return RootAddressSchema(result=responses, seed=seed)
