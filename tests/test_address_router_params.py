@@ -2,7 +2,8 @@
 import pytest
 from requests import Response
 
-from tests.constants import ADDRESS_RESPONSE_STRUCTURE
+from tests.utils.constants import ADDRESS_RESPONSE_STRUCTURE
+from tests.utils.helpers import ensure_valid_response
 
 pytestmark = pytest.mark.parametrize(
     "param,expected",
@@ -28,7 +29,7 @@ def test_en_address_router_with_params(param, expected, client):
     with client:
         response: Response = client.get(f'/v1/en/address?{param}={expected}')
 
-    ensure_valid_response(response)
+    ensure_valid_response(response=response, response_structure=RESPONSE_STRUCTURE)
     assert response.json()['result'][0][param] == expected
 
 
@@ -36,10 +37,5 @@ def test_ru_address_router_with_params(param, expected, client):
     with client:
         response: Response = client.get(f'/v1/ru/address?{param}={expected}')
 
-    ensure_valid_response(response)
+    ensure_valid_response(response=response, response_structure=RESPONSE_STRUCTURE)
     assert response.json()['result'][0][param] == expected
-
-
-def ensure_valid_response(response: Response):
-    assert response.status_code == 200
-    assert RESPONSE_STRUCTURE.keys() == response.json().keys()
