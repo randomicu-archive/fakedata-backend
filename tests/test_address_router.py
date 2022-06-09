@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 from requests import Response
 
-from tests.constants import ADDRESS_RESPONSE_STRUCTURE
-
+from tests.utils.constants import ADDRESS_RESPONSE_STRUCTURE
+from tests.utils.helpers import ensure_valid_response
 
 RESPONSE_STRUCTURE = ADDRESS_RESPONSE_STRUCTURE
 
@@ -11,21 +11,21 @@ def test_en_address_router(client, setup_test_db):
     with client:
         response: Response = client.get('/v1/en/address')
 
-    ensure_valid_response(response)
+    ensure_valid_response(response=response, response_structure=RESPONSE_STRUCTURE)
 
 
 def test_ru_address_router(client):
     with client:
         response: Response = client.get('/v1/ru/address')
 
-    ensure_valid_response(response)
+    ensure_valid_response(response=response, response_structure=RESPONSE_STRUCTURE)
 
 
 def test_en_address_count_param(client):
     with client:
         response: Response = client.get('/v1/en/address?count=2')
 
-    ensure_valid_response(response)
+    ensure_valid_response(response=response, response_structure=RESPONSE_STRUCTURE)
     assert len(response.json()['result']) == 2
 
 
@@ -33,7 +33,7 @@ def test_ru_address_count_param(client):
     with client:
         response: Response = client.get('/v1/ru/address?count=2')
 
-    ensure_valid_response(response)
+    ensure_valid_response(response=response, response_structure=RESPONSE_STRUCTURE)
     assert len(response.json()['result']) == 2
 
 
@@ -54,7 +54,7 @@ def test_en_address_seed_param(client):
     street_suffix = 'Trail'
     zip_code = '60542'
 
-    ensure_valid_response(response)
+    ensure_valid_response(response=response, response_structure=RESPONSE_STRUCTURE)
 
     assert response.json()['result'][0]['address'] == address
     assert response.json()['result'][0]['calling_code'] == calling_code
@@ -83,8 +83,3 @@ def test_inexistent_route(client):
         response: Response = client.get('/v1/en/no_route')
 
     assert response.status_code == 404
-
-
-def ensure_valid_response(response: Response):
-    assert response.status_code == 200
-    assert RESPONSE_STRUCTURE.keys() == response.json().keys()
