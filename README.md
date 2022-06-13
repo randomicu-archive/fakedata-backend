@@ -1,5 +1,11 @@
 # fakedata-backend
 
+|    CI Type     |                                                                                                 Status                                                                                                 |
+|:--------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|     Tests      | [![Run tests](https://github.com/randomicu/fakedata-backend/actions/workflows/testing.yml/badge.svg)](https://github.com/randomicu/fakedata-backend/actions/workflows/testing.yml)                     |
+| Image Building | [![Test image building](https://github.com/randomicu/fakedata-backend/actions/workflows/docker_build.yml/badge.svg)](https://github.com/randomicu/fakedata-backend/actions/workflows/docker_build.yml) |
+
+
 random.icu companion service with internal API for data generation.
 
 ## Available providers
