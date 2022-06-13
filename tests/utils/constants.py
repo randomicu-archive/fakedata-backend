@@ -20,3 +20,29 @@ ADDRESS_RESPONSE_STRUCTURE = {
     ],
     'seed': ''
 }
+
+PERSON_RESPONSE_STRUCTURE = {
+    'result': [
+        {
+            'age': '',
+            'email': '',
+            'first_name': '',
+            'full_name': '',
+            'gender': '',
+            'height': '',
+            'identifier': '',
+            'last_name': '',
+            'nationality': '',
+            'occupation': '',
+            'password': '',
+            'political_views': '',
+            'telephone': '',
+            'title': '',
+            'university': '',
+            'username': '',
+            'weight': '',
+            'work_experience': ''
+        }
+    ],
+    'seed': ''
+}

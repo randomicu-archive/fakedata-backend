@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 from mimesis import Person
 from mimesis.builtins import RussiaSpecProvider
 from mimesis.enums import Gender
@@ -22,7 +21,7 @@ class PersonResponse(Response):
         self.email: str = kwargs['email']
         self.first_name: str = kwargs['first_name']
         self.full_name: str = kwargs['full_name']
-        self.height: int = kwargs['height']
+        self.height: float = kwargs['height']
         self.identifier: str = kwargs['identifier']
         self.last_name: str = kwargs['last_name']
         self.nationality: str = kwargs['nationality']
@@ -32,8 +31,8 @@ class PersonResponse(Response):
         self.title: str = kwargs['title']
         self.university: str = kwargs['university']
         self.username: str = kwargs['username']
-        self.weight: int = kwargs['weight']
-        self.work_experience: int = kwargs['work_experience']
+        self.weight: float = kwargs['weight']
+        self.work_experience: float = kwargs['work_experience']
         self.patronymic: str = kwargs['patronymic']
         self.inn: str = kwargs['inn']
         self.kpp: int = kwargs['kpp']

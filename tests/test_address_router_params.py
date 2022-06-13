@@ -6,18 +6,18 @@ from tests.utils.constants import ADDRESS_RESPONSE_STRUCTURE
 from tests.utils.helpers import ensure_valid_response
 
 pytestmark = pytest.mark.parametrize(
-    "param,expected",
+    'param,expected',
     [
-        ("address", "test_address"),
-        ("calling_code", 111),
-        ("city", "test_city"),
-        ("continent", "test_continent"),
-        ("country", "test_country"),
-        ("country_code", "test_country_code"),
-        ("state", "test_state"),
-        ("street_name", "test_street_name"),
-        ("street_number", 444),
-        ("street_suffix", "test_street_suffix"),
+        ('address', 'test_address'),
+        ('calling_code', 111),
+        ('city', 'test_city'),
+        ('continent', 'test_continent'),
+        ('country', 'test_country'),
+        ('country_code', 'test_country_code'),
+        ('state', 'test_state'),
+        ('street_name', 'test_street_name'),
+        ('street_number', 444),
+        ('street_suffix', 'test_street_suffix'),
     ]
 )
 

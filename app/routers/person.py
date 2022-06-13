@@ -24,7 +24,7 @@ async def get_person(locale: str,
                      email: str | None = None,
                      first_name: str | None = None,
                      full_name: str | None = None,
-                     height: int | None = None,
+                     height: float | None = None,
                      identifier: str | None = None,
                      last_name: str | None = None,
                      nationality: str | None = None,
@@ -34,8 +34,8 @@ async def get_person(locale: str,
                      title: str | None = None,
                      university: str | None = None,
                      username: str | None = None,
-                     weight: str | None = None,
-                     work_experience: int | None = None,
+                     weight: float | None = None,
+                     work_experience: float | None = None,
                      patronymic: str | None = None,
                      inn: str | None = None,
                      kpp: str | None = None,
@@ -43,7 +43,6 @@ async def get_person(locale: str,
                      ogrn: str | None = None,
                      passport: str | None = None
                      ):
-
     if not seed:
         seed = secrets.token_hex(16)
 

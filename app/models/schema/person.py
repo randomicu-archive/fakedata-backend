@@ -8,7 +8,7 @@ class PersonSchema(BaseModel):
     first_name: str
     full_name: str
     gender: str
-    height: str
+    height: float
     identifier: str
     last_name: str
     nationality: str
@@ -19,8 +19,8 @@ class PersonSchema(BaseModel):
     title: str
     university: str
     username: str
-    weight: int
-    work_experience: int
+    weight: float
+    work_experience: float
     patronymic: str | None = None
     inn: str | None = None
     kpp: str | None = None
@@ -31,4 +31,4 @@ class PersonSchema(BaseModel):
 
 class RootPersonSchema(BaseModel):
     result: list[PersonSchema] = []
-    seed: str = None
+    seed: str | None = None
