@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+UUID_REGEX_UPPERCASE = r'[0-9A-F]{8}\-[0-9A-F]{4}\-[0-9A-F]{4}\-[0-9A-F]{4}\-[0-9A-F]{12}'
+UUID_REGEX_LOWERCASE = r'[0-9a-f]{8}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{4}\-[0-9a-f]{12}'
 
 ADDRESS_RESPONSE_STRUCTURE = {
     'result': [
@@ -45,4 +47,16 @@ PERSON_RESPONSE_STRUCTURE = {
         }
     ],
     'seed': ''
+}
+
+UUID_RESPONSE_STRUCTURE = {
+    'result': [
+        {
+            'uuid': {
+                'uuid': '',
+                'version': ''
+            },
+            'uppercase': ''
+        }
+    ]
 }
