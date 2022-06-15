@@ -3,7 +3,7 @@ import pytest
 from requests import Response
 
 from tests.utils.constants import PERSON_RESPONSE_STRUCTURE
-from tests.utils.helpers import ensure_valid_response
+from tests.utils.helpers import check_response
 
 RESPONSE_STRUCTURE = PERSON_RESPONSE_STRUCTURE
 TEST_EN_DATA = [
@@ -37,7 +37,7 @@ def test_en_person_router(param, expected, client):
     with client:
         response: Response = client.get(f'/v1/en/person?{param}={expected}')
 
-    ensure_valid_response(response=response, response_structure=RESPONSE_STRUCTURE)
+    check_response(response=response)
     assert response.json()['result'][0][param] == expected
 
 
@@ -46,5 +46,5 @@ def test_ru_person_router(param, expected, client):
     with client:
         response: Response = client.get(f'/v1/ru/person?{param}={expected}')
 
-    ensure_valid_response(response=response, response_structure=RESPONSE_STRUCTURE)
+    check_response(response=response)
     assert response.json()['result'][0][param] == expected
