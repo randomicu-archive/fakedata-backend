@@ -2,18 +2,24 @@
 from requests import Response
 
 from app import __version__
+from tests.utils.helpers import check_data
+from tests.utils.helpers import check_response
+from tests.utils.helpers import check_structure
 
 
-def test_healthcheck_router(client):
+def test_health_router(client):
     with client:
         response: Response = client.get('/health')
 
-    response_structure = {
+    data = {
         'version': __version__,
         'status': 'UP',
     }
 
-    assert response.status_code == 200
-    assert response_structure.keys() == response.json().keys()
-    assert response_structure == response.json()
-    assert response.json()['version'] == __version__
+    result_json: dict = response.json()
+
+    check_response(response=response)
+    check_data(data=data,
+               version=result_json['version'],
+               status=result_json['status'])
+    check_structure(response_structure=result_json, expected_structure=data)

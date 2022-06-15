@@ -6,7 +6,7 @@ from requests import Response
 from tests.utils.constants import UUID_REGEX_LOWERCASE
 from tests.utils.constants import UUID_REGEX_UPPERCASE
 from tests.utils.constants import UUID_RESPONSE_STRUCTURE
-from tests.utils.helpers import ensure_valid_response
+from tests.utils.helpers import check_response
 
 RESPONSE_STRUCTURE = UUID_RESPONSE_STRUCTURE
 
@@ -15,7 +15,7 @@ def test_uuid_router_v4_lowercase(client):
     with client:
         response: Response = client.get('/v1/uuid?uppercase=false&version=4')
 
-    ensure_valid_response(response, RESPONSE_STRUCTURE)
+    check_response(response)
 
     assert re.match(UUID_REGEX_LOWERCASE, response.json()['result'][0]['uuid']['uuid'])
     assert len(response.json()['result']) == 1
@@ -26,7 +26,7 @@ def test_uuid_router_v4_uppercase(client):
     with client:
         response: Response = client.get('/v1/uuid?uppercase=true&version=4')
 
-    ensure_valid_response(response, RESPONSE_STRUCTURE)
+    check_response(response)
 
     assert re.match(UUID_REGEX_UPPERCASE, response.json()['result'][0]['uuid']['uuid'])
     assert len(response.json()['result']) == 1
@@ -37,7 +37,7 @@ def test_uuid_router_count_param_lowercase(client):
     with client:
         response: Response = client.get('/v1/uuid?count=2')
 
-    ensure_valid_response(response, RESPONSE_STRUCTURE)
+    check_response(response)
 
     assert re.match(UUID_REGEX_LOWERCASE, response.json()['result'][1]['uuid']['uuid'])
     assert len(response.json()['result']) == 2
@@ -48,7 +48,7 @@ def test_uuid_router_count_param_uppercase(client):
     with client:
         response: Response = client.get('/v1/uuid?count=2&uppercase=true')
 
-    ensure_valid_response(response, RESPONSE_STRUCTURE)
+    check_response(response)
 
     assert re.match(UUID_REGEX_UPPERCASE, response.json()['result'][1]['uuid']['uuid'])
     assert len(response.json()['result']) == 2
@@ -59,7 +59,7 @@ def test_uuid_router_default(client):
     with client:
         response: Response = client.get('/v1/uuid')
 
-    ensure_valid_response(response, RESPONSE_STRUCTURE)
+    check_response(response)
 
     assert re.match(UUID_REGEX_LOWERCASE, response.json()['result'][0]['uuid']['uuid'])
     assert len(response.json()['result']) == 1
