@@ -130,13 +130,6 @@ def test_incorrect_locale(client):
     assert response.status_code == 400
 
 
-def test_inexistent_route(client):
-    with client:
-        response: Response = client.get('/v1/en/no_route')
-
-    assert response.status_code == 404
-
-
 def __validate_seed_data(result_json, data):
 
     check_data(data=data,
