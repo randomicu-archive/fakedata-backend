@@ -15,6 +15,7 @@ jobs:
       postgres:
         image: postgres:13-alpine
         env:
+          FAKEDATA_ENVIRONMENT: ci
           POSTGRES_SERVER: localhost
           POSTGRES_DB: fakedata
           POSTGRES_USER: postgres
