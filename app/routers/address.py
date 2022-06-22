@@ -55,5 +55,5 @@ async def get_address(locale: str,
         for _ in range(count):
             responses.append(address_response.generate())
 
-    await Event.send_event(event_type=EventType.ADDRESS, language=locale)
+    await Event.send_event(event_type=EventType.address, language=locale)
     return RootAddressSchema(result=responses, seed=seed)

@@ -76,5 +76,5 @@ async def get_person(locale: str,
         for _ in range(count):
             responses.append(person_response.generate())
 
-    await Event.send_event(event_type=EventType.PERSON, language=locale)
+    await Event.send_event(event_type=EventType.person, language=locale)
     return RootPersonSchema(result=responses, seed=seed)

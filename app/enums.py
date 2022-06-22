@@ -4,20 +4,19 @@ from enum import Enum
 from enum import unique
 
 
-@unique
-class EventType(Enum):
-    ADDRESS = 'address'
-    PERSON = 'person'
-    RANDOM_SENTENCE = 'random_sentence'
-    RANDOM_SENTENCES = 'random_sentences'
-    SENTENCE_LIMITS = 'sentence_limits'
-    LOREM_LIMITS = 'lorem_limits'
-    LOREM_BYTES = 'lorem_bytes'
-    LOREM_WORDS = 'lorem_words'
-    LOREM_PARAGRAPHS = 'lorem_paragraphs'
-    LOREM_PARAGRAPHS_BREAK = 'lorem_paragraphs_break'
-    LOREM_LISTS = 'lorem_lists'
-    UUID = 'uuid'
+class EventType(str, Enum):
+    address = 'address'
+    person = 'person'
+    random_sentence = 'random_sentence'
+    random_sentences = 'random_sentences'
+    sentence_limits = 'sentence_limits'
+    lorem_limits = 'lorem_limits'
+    lorem_bytes = 'lorem_bytes'
+    lorem_words = 'lorem_words'
+    lorem_paragraphs = 'lorem_paragraphs'
+    lorem_paragraphs_break = 'lorem_paragraphs_break'
+    lorem_lists = 'lorem_lists'
+    uuid = 'uuid'
 
 
 @unique
@@ -27,7 +26,12 @@ class ProviderType(Enum):
     REGIONAL_RU = auto()
 
 
-@unique
 class Locale(Enum):
     EN = 'en'
     RU = 'ru'
+
+
+class Environment(Enum):
+    DEV = 'dev'
+    CI = 'ci'
+    PRODUCTION = 'production'
