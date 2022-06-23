@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-import secrets
 
 from fastapi import APIRouter
 from fastapi import Depends
@@ -33,11 +32,9 @@ async def get_address(locale: str,
                       zip_code: int | str | None = None
                       ):
 
-    if not seed:
-        seed = secrets.token_hex(16)
-
     address_response: AddressResponse = AddressResponse(locale=locale,
                                                         seed=seed,
+                                                        count=count,
                                                         address=address,
                                                         calling_code=calling_code,
                                                         city=city,
@@ -50,10 +47,8 @@ async def get_address(locale: str,
                                                         street_suffix=street_suffix,
                                                         zip_code=zip_code)
 
-    responses = []
-    if count >= 1:
-        for _ in range(count):
-            responses.append(address_response.generate())
+    response = address_response.generate()
+    provider_seed = address_response.seed
 
     await Event.send_event(event_type=EventType.address, language=locale)
-    return RootAddressSchema(result=responses, seed=seed)
+    return RootAddressSchema(result=response, seed=provider_seed)
