@@ -9,7 +9,7 @@ router = APIRouter()
 
 
 @router.get('/health')
-async def get_status():
+async def get_health():
     data = {
         'version': __version__,
         'status': 'UP'
