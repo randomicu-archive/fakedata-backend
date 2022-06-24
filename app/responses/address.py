@@ -11,9 +11,9 @@ from app.responses.response import Response
 
 
 class AddressResponse(Response):
-    def __init__(self, locale: str, seed: str, **kwargs):
+    def __init__(self, locale: str, seed: str | None, **kwargs):
         self.locale = Locale[locale.upper()]
-        self.seed = seed or secrets.token_hex(16)
+        self._seed = seed or secrets.token_hex(16)
         self.count = kwargs['count']
         self.provider: Address = Factory.get_provider(ProviderType.ADDRESS, locale=self.locale, seed=self.seed)
         self.address = kwargs['address']
@@ -29,26 +29,22 @@ class AddressResponse(Response):
         self.zip_code = kwargs['zip_code']
 
     @property
-    def _seed(self):
-        return self.seed
+    def seed(self):
+        return self._seed
 
     def generate(self):
         self.provider.reseed(self.seed)
 
         schemas = []
 
-        if self.count > 1:
-            for _ in range(self.count):
-                schema = self._generate_schema()
-                schemas.append(schema)
-        else:
+        for _ in range(self.count):
             schema = self._generate_schema()
             schemas.append(schema)
 
         return schemas
 
     def _generate_schema(self):
-        schema = AddressSchema(
+        return AddressSchema(
             address=self.address or self.provider.address(),
             calling_code=self.calling_code or self.provider.calling_code(),
             city=self.city or self.provider.city(),
@@ -64,5 +60,3 @@ class AddressResponse(Response):
             street_suffix=self.street_suffix or self.provider.street_suffix(),
             zip_code=self.zip_code or self.provider.zip_code()
         )
-
-        return schema

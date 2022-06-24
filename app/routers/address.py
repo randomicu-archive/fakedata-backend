@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 from fastapi import APIRouter
 from fastapi import Depends
 

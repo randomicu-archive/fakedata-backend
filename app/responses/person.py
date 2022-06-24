@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+import secrets
+
 from mimesis import Person
 from mimesis.builtins import RussiaSpecProvider
 from mimesis.enums import Gender
@@ -11,12 +13,13 @@ from app.responses.response import Response
 
 
 class PersonResponse(Response):
-    def __init__(self, locale: str, seed: str, **kwargs):
+    def __init__(self, locale: str, seed: str | None, **kwargs):
         self.locale: Locale = Locale[locale.upper()]
-        self.seed = seed
+        self._seed = seed or secrets.token_hex(16)
+        self.count = kwargs['count']
         self.provider: Person = Factory.get_provider(ProviderType.PERSON, seed=self.seed, locale=self.locale)
         self.gender_number: int = Factory.get_gender_code(seed=self.seed)
-        self.gender: Gender = self.get_gender(self.gender_number)
+        self.gender: Gender = self._get_gender(self.gender_number)
         self.age: int = kwargs['age']
         self.email: str = kwargs['email']
         self.first_name: str = kwargs['first_name']
@@ -40,9 +43,22 @@ class PersonResponse(Response):
         self.ogrn: int = kwargs['ogrn']
         self.passport: str = kwargs['passport']
 
+    @property
+    def seed(self):
+        return self._seed
+
     def generate(self):
         self.provider.reseed(self.seed)
 
+        schemas = []
+
+        for _ in range(self.count):
+            schema = self._generate_schema()
+            schemas.append(schema)
+
+        return schemas
+
+    def _generate_schema(self):
         _first_name = self.first_name or self.provider.first_name(gender=self.gender)
         _last_name = self.last_name or self.provider.last_name(gender=self.gender)
         _full_name = f'{_first_name} {_last_name}'
@@ -66,25 +82,24 @@ class PersonResponse(Response):
                               weight=self.weight or self.provider.weight(),
                               work_experience=self.work_experience or self.provider.work_experience())
 
-        is_regional: bool = self.check_if_regional()
+        is_regional: bool = self._check_if_regional()
 
         if is_regional:
-            return self.generate_regional_schema(schema, full_name=_full_name)
+            self._regional_schema_update(schema, full_name=schema.full_name)
 
         return schema
 
-    def check_if_regional(self) -> bool:
+    def _check_if_regional(self) -> bool:
         return self.locale != Locale.EN
 
-    @staticmethod
-    def get_gender(gender_code: int) -> Gender:
+    def _get_gender(self, gender_code: int) -> Gender:
         match gender_code:
             case 1:
                 return Gender.MALE
             case 2:
                 return Gender.FEMALE
 
-    def generate_regional_schema(self, schema, **kwargs) -> RussiaSpecProvider:
+    def _regional_schema_update(self, schema, **kwargs) -> RussiaSpecProvider:
         ru_provider: RussiaSpecProvider = Factory.get_provider(ProviderType.REGIONAL_RU, seed=self.seed)
         ru_provider.reseed(seed=self.seed)
 
