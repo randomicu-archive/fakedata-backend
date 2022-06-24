@@ -14,7 +14,7 @@ router = APIRouter()
 
 
 @router.get('/uuid', response_model=RootUuidSchema)
-async def get_uuids(uppercase: bool = False, version: int = 4, count: int = 1) -> RootUuidSchema | list[RootUuidSchema]:
+async def get_uuids(uppercase: bool = False, version: int = 4, count: int = 1):
     if version != 4:
         raise HTTPException(status_code=HTTPStatus.BAD_REQUEST,
                             detail='Unsupported uuid version. '
