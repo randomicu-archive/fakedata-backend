@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-import secrets
-
 from fastapi import APIRouter
 from fastapi import Depends
 
@@ -43,11 +41,9 @@ async def get_person(locale: str,
                      ogrn: str | None = None,
                      passport: str | None = None
                      ):
-    if not seed:
-        seed = secrets.token_hex(16)
-
     person_response: PersonResponse = PersonResponse(locale=locale,
                                                      seed=seed,
+                                                     count=count,
                                                      age=age,
                                                      email=email,
                                                      first_name=first_name,
@@ -71,10 +67,8 @@ async def get_person(locale: str,
                                                      ogrn=ogrn,
                                                      passport=passport)
 
-    responses = []
-    if count >= 1:
-        for _ in range(count):
-            responses.append(person_response.generate())
+    response = person_response.generate()
+    provider_seed = person_response.seed
 
     await Event.send_event(event_type=EventType.person, language=locale)
-    return RootPersonSchema(result=responses, seed=seed)
+    return RootPersonSchema(result=response, seed=provider_seed)
