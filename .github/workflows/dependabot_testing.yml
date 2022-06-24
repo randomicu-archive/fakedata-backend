@@ -61,6 +61,7 @@ jobs:
 
     - name: Run db migrations and pytest
       env:
+        FAKEDATA_ENVIRONMENT: ci
         FAKEDATA_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/fakedata
       run: |
         docker run --network host --rm --env "FAKEDATA_DATABASE_URL=$FAKEDATA_DATABASE_URL" ghcr.io/randomicu/fakedata-database:latest
