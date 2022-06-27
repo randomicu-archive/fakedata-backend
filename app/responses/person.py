@@ -49,14 +49,7 @@ class PersonResponse(Response):
 
     def generate(self):
         self.provider.reseed(self.seed)
-
-        schemas = []
-
-        for _ in range(self.count):
-            schema = self._generate_schema()
-            schemas.append(schema)
-
-        return schemas
+        return [self._generate_schema() for _ in range(self.count)]
 
     def _generate_schema(self):
         _first_name = self.first_name or self.provider.first_name(gender=self.gender)
@@ -93,11 +86,7 @@ class PersonResponse(Response):
         return self.locale != Locale.EN
 
     def _get_gender(self, gender_code: int) -> Gender:
-        match gender_code:
-            case 1:
-                return Gender.MALE
-            case 2:
-                return Gender.FEMALE
+        return Gender.MALE if gender_code == 1 else Gender.FEMALE
 
     def _regional_schema_update(self, schema, **kwargs) -> RussiaSpecProvider:
         ru_provider: RussiaSpecProvider = Factory.get_provider(ProviderType.REGIONAL_RU, seed=self.seed)

@@ -34,14 +34,7 @@ class AddressResponse(Response):
 
     def generate(self):
         self.provider.reseed(self.seed)
-
-        schemas = []
-
-        for _ in range(self.count):
-            schema = self._generate_schema()
-            schemas.append(schema)
-
-        return schemas
+        return [self._generate_schema() for _ in range(self.count)]
 
     def _generate_schema(self):
         return AddressSchema(
