@@ -43,7 +43,7 @@ def test_en_address_count_param(client):
     check_response(response=response)
     check_structure(response_structure=result_raw, expected_structure=RESPONSE_STRUCTURE)
     check_structure(response_structure=result_json[0], expected_structure=RESPONSE_STRUCTURE['result'][0])
-    check_structure(response_structure=result_json[0], expected_structure=RESPONSE_STRUCTURE['result'][0])
+    check_structure(response_structure=result_json[1], expected_structure=RESPONSE_STRUCTURE['result'][0])
 
     assert len(response.json()['result']) == 2
 
