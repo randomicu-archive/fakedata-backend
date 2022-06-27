@@ -1,15 +1,15 @@
 #!/usr/bin/env python
-import copy
-
 from requests import Response
 from starlette import status
 
 from tests.utils.constants import PERSON_RESPONSE_STRUCTURE
+from tests.utils.constants import PERSON_RU_RESPONSE_STRUCTURE
 from tests.utils.helpers import check_data
 from tests.utils.helpers import check_response
 from tests.utils.helpers import check_structure
 
 RESPONSE_STRUCTURE = PERSON_RESPONSE_STRUCTURE
+RESPONSE_RU_STRUCTURE = PERSON_RU_RESPONSE_STRUCTURE
 
 
 def test_en_person_router(client):
@@ -28,21 +28,42 @@ def test_ru_person_router(client):
     with client:
         response: Response = client.get('/v1/ru/person')
 
-    ru_response_structure = copy.deepcopy(RESPONSE_STRUCTURE)
-
-    ru_response_structure['result'][0]['patronymic'] = ''
-    ru_response_structure['result'][0]['inn'] = ''
-    ru_response_structure['result'][0]['kpp'] = ''
-    ru_response_structure['result'][0]['bic'] = ''
-    ru_response_structure['result'][0]['ogrn'] = ''
-    ru_response_structure['result'][0]['passport'] = ''
-
     result_raw: dict = response.json()
     result_json: dict = response.json()['result'][0]
 
     check_response(response=response)
-    check_structure(response_structure=result_raw, expected_structure=ru_response_structure)
-    check_structure(response_structure=result_json, expected_structure=ru_response_structure['result'][0])
+    check_structure(response_structure=result_raw, expected_structure=RESPONSE_RU_STRUCTURE)
+    check_structure(response_structure=result_json, expected_structure=RESPONSE_RU_STRUCTURE['result'][0])
+
+
+def test_en_person_count_param(client):
+    with client:
+        response: Response = client.get('/v1/en/person?count=2')
+
+    result_raw: dict = response.json()
+    result_json: dict = response.json()['result']
+
+    check_response(response=response)
+    check_structure(response_structure=result_raw, expected_structure=RESPONSE_STRUCTURE)
+    check_structure(response_structure=result_json[0], expected_structure=RESPONSE_STRUCTURE['result'][0])
+    check_structure(response_structure=result_json[1], expected_structure=RESPONSE_STRUCTURE['result'][0])
+
+    assert len(response.json()['result']) == 2
+
+
+def test_ru_person_count_param(client):
+    with client:
+        response: Response = client.get('/v1/ru/person?count=2')
+
+    result_raw: dict = response.json()
+    result_json: dict = response.json()['result']
+
+    check_response(response=response)
+    check_structure(response_structure=result_raw, expected_structure=RESPONSE_RU_STRUCTURE)
+    check_structure(response_structure=result_json[0], expected_structure=RESPONSE_RU_STRUCTURE['result'][0])
+    check_structure(response_structure=result_json[1], expected_structure=RESPONSE_RU_STRUCTURE['result'][0])
+
+    assert len(response.json()['result']) == 2
 
 
 def test_en_person_seed_param(client):
