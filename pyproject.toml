@@ -8,7 +8,7 @@ authors = ["pythoninja"]
 python = "^3.9"
 mimesis = "^5.5.0"
 fastapi = "^0.78.0"
-uvicorn = {extras = ["standard"], version = "^0.18.1"}
+uvicorn = {extras = ["standard"], version = "^0.18.2"}
 asyncpg = "^0.25.0"
 databases = {extras = ["postgresql"], version = "^0.6.0"}
 SQLAlchemy = "^1.4.38"
